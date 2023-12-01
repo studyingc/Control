@@ -55,11 +55,14 @@ $$\theta(s) = \frac{6000}{s(s^2+10s+6000)}$$
 matlab을 활용하여 역라플라스 변환을 진행하면 다음과 같다.
 
 #### (b) $\theta_{d}(t)=0$으로 가정하여 부하외란 $T_{d}(s)=A/s$의 영향을 구하라
+전달함수 식은 다음과 같다.
 $$\frac{\theta(s)}{T_{d}(s)}=-\frac{1/s(0.1s+1)}{1+20\times30\times1/(s(0.1s+1))}=-\frac{1}{0.1s^2+s+600}$$
 $$\theta(s)=-\frac{1}{0.1s^2+s+6000}\times \frac{A}{s}$$
 
 #### (c) 입력 $r(t) = t, t>0$일 때 정상상태 오차 $e_{ss}$를 결정하라.
-$$E_{c}(s)=\frac{1}{1+G(s)G_{c}(s)}R(s)=\frac{1}{1+600/s(0.1s+1)}\times\frac{1}{s^2}=\frac{0.1s^2+s}{s^2(0.1s^2+s+600)$$
+정상상태 오차에 대한 식은 다음과 같다.
+$$E_{c}(s)=\frac{1}{1+G(s)G_{c}(s)}R(s)=\frac{1}{1+600/s(0.1s+1)}\times\frac{1}{s^2}=\frac{0.1s^2+s}{s^2(0.1s^2+s+600)}$$
+최종정리에 의하면 
 $$\lim_{t \rightarrow \infty}e_{ss}=\lim_{s \rightarrow 0}sE_{c}(s)=\lim_{s \rightarrow 0}\frac{0.1s^2+s}{s(0.1s^2+s+600)}=\frac{0}{1}=\infty$$
 
 
