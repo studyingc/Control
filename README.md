@@ -1,68 +1,109 @@
-# Control system assignment 3
-### 2019732014 이동훈
----
-## 4.8
-#### (a) K에 대한 시스템의 감도를 구하라.
-감도 S(s)에 대한 식은 다음과 같다. 
-$$S(s)=\frac{1}{1+L(s)}=\frac{1}{1+G(s)\times\frac{K}{0.2s+1}}=\frac{1}{1+\frac{100}{s^{2}+25s+100}\times\frac{K}{0.2s+1}}$$
-$$S(s)=\frac{0.2s^3+6s^2+45s+100}{0.2s^3+6s^2+45s+100+100K}$$
+# StoragetVET 2.0
 
-#### (b) 외란 $T_{d}(s)$가 출력  $Y(s)$에 미치는 영향을 구하라
-외란에 대한 출력의 식은 다음과 같다.
-$$Y(s)=G(s)S(s)T_{d}(s)=\frac{100}{s^{2}+25s+100}\times\frac{(s^2+25s+100)(0.2s+1)}{0.2s^3+6s^2+45s+100+100K}\times T_{d}(s)$$
-$$Y(s) = \frac{20s+100}{0.2s^3+6s^2+45s+100+100K}$$
+StorageVET 2.0 is a valuation model for analysis of energy storage technologies and some other energy resources paired with storage. The tool can be used as a standalone model, or integrated with other power system models, thanks to its open-source Python framework. Download the executable environment and learn more at https://www.storagevet.com.
 
-#### (c) 출력 $Y(s)$의 크기가 A인 계단 외란 입력의 10%보다 작도록 하는 K의 범위를 찾아라
-입력에 대한 출력의 식은 다음과 같다.
-$$Y(s)=\frac{20s+100}{0.2s^3+6s^2+45s+100+100K}\times\frac{A}{s}$$
-출력이 A의 0.1보다 작아야 한다. 따라서
-$$Y(s)=\frac{20s+100}{0.2s^3+6s^2+45s+100+100K}\times\frac{A}{s}<0.1A$$
-최종 정리에 의하면
-$$\lim_{t \rightarrow \infty}Y(s)=\lim_{s \rightarrow 0}sY(s)=\lim_{s \rightarrow 0}s\times\frac{20s+100}{0.2s^3+6s^2+45s+100+100K}\times \frac{A}{s} =\frac{100A}{100+100K}$$
-$$\frac{100A}{100+100K}<\frac{A}{10}$$
-$$K>9$$
+## Getting Started
 
-## 4.12
-#### (a) 각 시스템의 폐루프 전달함수 $T_{1}$과 $T_{2}$를 계산하라.
-$T_{1}$의 값은 다음과 같다.
-$$T_{1}=\frac{\frac{K_{1}}{s+4}\times\frac{K_{2}}{s-1}}{1+6\times\frac{K_{1}}{s+4}\times\frac{K_{2}}{s-1}} = \frac{K_{1}K_{2}}{(s+4)(s-1)+6K_{1}K_{2}}=\frac{K_{1}K_{2}}{s^2+3s-4+6K_{1}K_{2}}$$
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-$T_{2}$는 두 식으로 나눠서 구했다.
-$$T_{2}^{'}=\frac{\frac{K_{1}}{s+4}}{1-2\times\frac{K_{1}}{s+4}}=\frac{K_{1}}{s+4-2K_{1}}$$
-$$T_{2}^{''}=\frac{\frac{K_{2}}{s-1}}{1+2\times\frac{K_{2}}{s-4}}=\frac{K_{2}}{s-1+2K_{2}}$$
+### Prerequisites & Installing
 
-따라서 $T_{2}$는 다음과 같다.
-$$T_{2}=T_{2}^{'}\times T_{2}^{''}=\frac{K_{1}K_{2}}{s^2+3s-4-2K_{1}s+2K_{1}+2K_{2}S+8K_{2}-4K_{1}K_{2}}$$
+#### 1. Install [Anaconda](https://www.anaconda.com/download/) for python 3.**
 
-#### (b) 공칭값이 $K_{1}=K_{2}=1$ 일 때 매개변수 $K_{1}$에 대한 두 시스템의 감도를 구하라
-$T_{1}$에 해당하는 감도를 구해보면 다음과 같다.
-$$S_{1}=\frac{\partial T_{1}(s)}{\partial K_{1}}\times\frac{K_{1}}{T_{1}(s)}$$
-$$\frac{\partial T_{1}(s)}{\partial K_{1}}=\frac{(s^2+3s-4)K_{2}}{(s^2+3s-4+6K_{1}K_{2})^{2}}$$  
-$$S_{1}=\frac{(s^2+3s-4)K_{2}}{(s^2+3s-4+6K_{1}K_{2})^{2}}\times\frac{K_{1}}{K_{1}K_{2}/(s^2+3s-4+K_{1}K_{2})}=\frac{s^2+3s-4}{s^2+3s+2}=\frac{(s+4)(s-1)}{(s+1)(s+2)}$$
+#### 2. Open Anaconda Prompt
 
-$T_{2}$에 해당하는 감도를 구해보면 다음과 같다.
-$$S_{2}=\frac{\partial T_{2}(s)}{\partial K_{1}}\times\frac{K_{1}}{T_{2}(s)}$$
-$$\frac{\partial T_{2}(s)}{\partial K_{1}}=\frac{K_{2}(s^2+3s+4)+2K_{2}^2S+8K_{2}^2}{(s^2+3s-4-2K_{1}s+2K_2{s}+2K_{1}+8K_{2}-4K_{1}K_{2})^2}$$
-$$S_{1}=\frac{K_{2}(s^2+3s+4)+2K_{2}^2S+8K_{2}^2}{(s^2+3s-4-2K_{1}s+2K_2{s}+2K_{1}+8K_{2}-4K_{1}K_{2})^2}\times\frac{K_{1}}{K_{1}K_{2}/(s^2+3s-4-2K_{1}s+2K_2{s}+2K_{1}+8K_{2}-4K_{1}K_{2})^2}$$
-$$=\frac{s^2+5s+4}{s^2+3s+2}=\frac{(s+4)}{(s+2)}$$
+#### 3. Activate Python 3.8 environment
 
-## 4.17
-#### (a)K=20일 때 $\theta_{d}(t)$의 계단변화에 대한 시스템의 응답 $\theta(t)$를 결정하라
-전달함수는 다음과 같다
-$$\frac{\theta(s)}{\theta_{d}(s)}=1\times\frac{20\times30\times1/(s(0.1s+1))}{1+20\times30\times1/(s(0.1s+1))}=\frac{6000}{s^2+10s+6000}$$
-$\theta_{d}(s) = 1/s$ 이므로 
-$$\theta(s) = \frac{6000}{s(s^2+10s+6000)}$$
-matlab을 활용하여 역라플라스 변환을 진행하면 다음과 같다.
+    It is recommended that the latest Python 3.8 version be used. As of this writing, that version is Python 3.8.16
+    We give the user 2 routes to create a python environment for python 3.8.16
+   >Most Windows users have success with the Conda route.
 
-#### (b) $\theta_{d}(t)=0$으로 가정하여 부하외란 $T_{d}(s)=A/s$의 영향을 구하라
-전달함수 식은 다음과 같다.
-$$\frac{\theta(s)}{T_{d}(s)}=-\frac{1/s(0.1s+1)}{1+20\times30\times1/(s(0.1s+1))}=-\frac{1}{0.1s^2+s+600}$$
-$$\theta(s)=-\frac{1}{0.1s^2+s+6000}\times \frac{A}{s}$$
+    Each route results in a siloed python environment, but with different properties.
+    Choose the conda OR pip route and stick to it. Commands are not interchangeable.
+    >Please remember the route which created the python environment in order to activate it again later.
+   > **You will need to activate the python environment to run the model, always.**
 
-#### (c) 입력 $r(t) = t, t>0$일 때 정상상태 오차 $e_{ss}$를 결정하라.
-정상상태 오차에 대한 식은 다음과 같다.
-$$E_{c}(s)=\frac{1}{1+G(s)G_{c}(s)}R(s)=\frac{1}{1+600/s(0.1s+1)}\times\frac{1}{s^2}=\frac{0.1s^2+s}{s^2(0.1s^2+s+600)}$$
-최종정리에 의하면 
-$$\lim_{t \rightarrow \infty}e_{ss}=\lim_{s \rightarrow 0}sE_{c}(s)=\lim_{s \rightarrow 0}\frac{0.1s^2+s}{s(0.1s^2+s+600)}=\frac{0}{1}=\infty$$
+    **Conda Route - Recommended route for Windows OS**
 
+Note that the python version is specified, meaning conda does not have to be associated with a python 3.8
+```
+conda create -n storagevet-venv python=3.8.16
+conda activate storagevet-venv
+```
+
+**Pip Route**
+
+    If you have Python 3.8.16 installed directly on your computer, then we recommend trying this route.
+   >This route lets you to open the prompt of your choice.
+Note that pip should be associated to a python 3.8 installation
+
+On Linux/Mac
+
+```
+pip install virtualenv
+virtualenv storagevet-venv
+source storagevet-venv/bin/activate
+```
+On Windows
+
+```
+pip install virtualenv
+virtualenv storagevet-venv
+"./storagevet-venv/Scripts/activate"
+```
+
+#### 3. Install project dependencies
+
+**Conda Route**
+```
+pip install setuptools==52.0.0
+conda install conda-forge::blas=*=openblas --file requirements.txt --file requirements-dev.txt
+pip install numpy_financial==1.0.0
+```
+
+**Pip Route**
+```
+pip install setuptools==52.0.0
+pip install -r requirements.txt -r requirements-dev.txt
+pip install numpy_financial==1.0.0
+```
+
+## Running the tests
+
+To run tests, activate Python environment. Then enter the following into your terminal:
+```
+python -m pytest test
+```
+
+## Deployment
+
+To use this project as a dependency in your own, clone this repo directly into the root of your project.
+Open terminal or command prompt from your project root, and input the following command:
+```
+pip install -e ./storagevet
+```
+
+## Versioning
+
+For the versions available, please
+see the [list of releases](https://github.com/epri-dev/StorageVET/releases) on out GitHub repository.
+This is version 1.2.3
+
+## Authors
+
+* **Miles Evans**
+* **Andres Cortes**
+* **Halley Nathwani**
+* **Ramakrishnan Ravikumar**
+* **Evan Giarta**
+* **Thien Nguyen**
+* **Micah Botkin-Levy**
+* **Yekta Yazar**
+* **Kunle Awojinrin**
+* **Giovanni Damato**
+* **Andrew Etringer**
+
+## License
+
+This project is licensed under the BSD (3-clause) License - see the [LICENSE.txt](./LICENSE.txt) file for details
 
